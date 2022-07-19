@@ -19,7 +19,7 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
       throws IOException {
 
-    System.out.println("JwtToken 호출");
+    System.out.println("토큰 불러오기");
     String accessToken = request.getHeader("ACCESS_TOKEN");
     System.out.println("AccessToken:" + accessToken);
     String refreshToken = request.getHeader("REFRESH_TOKEN");
@@ -34,7 +34,7 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
     response.setStatus(401);
     response.setHeader("ACCESS_TOKEN", accessToken);
     response.setHeader("REFRESH_TOKEN", refreshToken);
-    response.setHeader("msg", "Check the tokens.");
+    response.setHeader("msg", "토큰 체크");
     return false;
   }
 }

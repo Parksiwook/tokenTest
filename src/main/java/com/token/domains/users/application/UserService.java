@@ -66,7 +66,7 @@ public class UserService {
     }
     String accessToken = "";
     String refreshToken = authEntity.getRefreshToken();
-
+    // accessToken 발급
     if (tokenUtils.isValidRefreshToken(refreshToken)) {
       accessToken = tokenUtils.generateJwtToken(authEntity.getUsersEntity());
       return TokenResponse.builder()
