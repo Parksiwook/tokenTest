@@ -2,13 +2,14 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://3.34.122.118:3306/RDBMS?serverTimezone=Asia/Seoul
-    username: wook
-    password: 222
-#  jpa:
-#    show-sql: true
-#    properties:
-#      hibernate:
-#        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-#        format_sql: true
-#    hibernate:
-#      ddl-auto: update
+    username: jsh
+    password: jsh
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        format_sql: true
+    hibernate:
+      ddl-auto: update
