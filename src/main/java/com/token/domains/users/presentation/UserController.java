@@ -20,10 +20,10 @@ public class UserController {
 
   private final UserService userService;
 
+  // @RequestBody body내용을 통째로 자바 객체로 변환해서 맵핑된 메소드 파라미터로 전달
   @PostMapping("/user/signUp")
   public ResponseEntity signUp(@RequestBody UserRequest userRequest) {
-    return userService.findByUserId(userRequest.getUserId()).isPresent()
-        ? ResponseEntity.badRequest().build()
+    return userService.findByUserId(userRequest.getUserId()).isPresent() ? ResponseEntity.badRequest().build()
         : ResponseEntity.ok(userService.signUp(userRequest));
   }
 

@@ -27,9 +27,9 @@ public class TokenUtils {
   public String generateJwtToken(UsersEntity usersEntity) {
     return Jwts.builder()
         .setSubject(usersEntity.getUserId())
-        .setHeader(createHeader())
-        .setClaims(createClaims(usersEntity))
-        .setExpiration(createExpireDate(1000 * 60 * 5))
+        .setHeader(createHeader())//header 부분설정
+        .setClaims(createClaims(usersEntity)) // 정보저장
+        .setExpiration(createExpireDate(1000L * 60 * 5))  //5분 설정
         .signWith(SignatureAlgorithm.HS256, createSigningKey(SECRET_KEY))
         .compact();// access 토큰 생성
   }
@@ -39,14 +39,14 @@ public class TokenUtils {
         .setSubject(usersEntity.getUserId())
         .setHeader(createHeader())
         .setClaims(createClaims(usersEntity))
-        .setExpiration(createExpireDate(1000 * 60 * 10))
+        .setExpiration(createExpireDate(1000L * 60 * 10)) // 10분 설정
         .signWith(SignatureAlgorithm.HS256, createSigningKey(REFRESH_KEY))
         .compact(); //refreshtoken 생성
   }
 
 
 
-  public boolean isValidToken(String token) { // 토큰 유효성 확인하기
+  public boolean isValidToken(String token) { // 토큰 정보 보기
     System.out.println("isValidToken is : " +token);
     try {
       Claims accessClaims = getClaimsFormToken(token);
@@ -118,12 +118,12 @@ public class TokenUtils {
     return Jwts.parser()
         .setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY))
         .parseClaimsJws(token)
-        .getBody();
+        .getBody(); //token 에서 페이로드 추출
   }
   private Claims getClaimsToken(String token) {
     return Jwts.parser()
-            .setSigningKey(DatatypeConverter.parseBase64Binary(REFRESH_KEY))
+            .setSigningKey(DatatypeConverter.parseBase64Binary(REFRESH_KEY)) //
             .parseClaimsJws(token)
-            .getBody();
+            .getBody(); //token 에서 페이로드 추출
   }
 }
