@@ -1,6 +1,5 @@
 package com.token.commons.Jwt;
 
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -31,6 +30,7 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
         return true;
       }
     }
+
     response.setStatus(401);
     response.setHeader("ACCESS_TOKEN", accessToken);
     response.setHeader("REFRESH_TOKEN", refreshToken);

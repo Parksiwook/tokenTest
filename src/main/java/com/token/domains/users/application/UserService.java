@@ -29,6 +29,7 @@ public class UserService {
     return usersRepository.findByUserId(userId);
   }
 
+  // 회원가입
   @Transactional
   public TokenResponse signUp(UserRequest userRequest) {
     UsersEntity usersEntity =
@@ -54,6 +55,7 @@ public class UserService {
     return TokenResponse.builder().ACCESS_TOKEN(accessToken).REFRESH_TOKEN(refreshToken).build();
   }
 
+  // 로그인
   @Transactional
   public TokenResponse signIn(UserRequest userRequest) throws Exception {
     UsersEntity usersEntity =
@@ -67,6 +69,7 @@ public class UserService {
     String accessToken = "";
     String refreshToken = authEntity.getRefreshToken();
 
+    // 로그인시 access_TOKEN 발급
     if (tokenUtils.isValidRefreshToken(refreshToken)) {
       accessToken = tokenUtils.generateJwtToken(authEntity.getUsersEntity());
       return TokenResponse.builder()

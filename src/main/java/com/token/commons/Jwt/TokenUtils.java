@@ -1,7 +1,5 @@
 package com.token.commons.Jwt;
 
-
-import com.token.domains.users.application.dto.UserRequest;
 import com.token.domains.users.domain.UsersEntity;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
@@ -26,20 +24,20 @@ public class TokenUtils {
 
   public String generateJwtToken(UsersEntity usersEntity) {
     return Jwts.builder()
+        .setHeader(createHeader())                      // header 지정
+        .setClaims(createClaims(usersEntity))           // payload에 들어 갈 claim 등록
         .setSubject(usersEntity.getUserId())
-        .setHeader(createHeader())
-        .setClaims(createClaims(usersEntity))
-        .setExpiration(createExpireDate(1000 * 60 * 5))
-        .signWith(SignatureAlgorithm.HS256, createSigningKey(SECRET_KEY))
-        .compact();
+        .setExpiration(createExpireDate(1000 * 60 * 1)) // 토큰 만료 시간
+        .signWith(SignatureAlgorithm.HS256, createSigningKey(SECRET_KEY)) // 해싱 알고리즘과 시크릿 키 설정
+        .compact();                                                       // JWT 토큰 생성
   }
 
   public String saveRefreshToken(UsersEntity usersEntity) {
     return Jwts.builder()
-        .setSubject(usersEntity.getUserId())
         .setHeader(createHeader())
         .setClaims(createClaims(usersEntity))
-        .setExpiration(createExpireDate(1000 * 60 * 10))
+        .setSubject(usersEntity.getUserId())
+        .setExpiration(createExpireDate(1000 * 60 * 2))
         .signWith(SignatureAlgorithm.HS256, createSigningKey(REFRESH_KEY))
         .compact();
   }
@@ -72,7 +70,7 @@ public class TokenUtils {
 
       System.out.println("Access token: " + accessClaims.getExpiration());
       System.out.println("Access userIdd: " + accessClaims.get("userId"));
-      a = (String) accessClaims.get("userId");
+//      a = (String) accessClaims.get("userId");
 
       return true;
     } catch (ExpiredJwtException exception) {
@@ -97,13 +95,13 @@ public class TokenUtils {
     Map<String, Object> header = new HashMap<>();
 
     header.put("typ", "ACCESS_TOKEN");
-    header.put("alg", "HS256");
+    header.put("alg", "HS256");           // signature 해싱하기 위한 알고리즘 지정(HS256) 해시 256 암호화
     header.put("regDate", System.currentTimeMillis());
 
     return header;
   }
 
-  private Map<String, Object> createClaims(UsersEntity usersEntity) {
+  private Map<String, Object> createClaims(UsersEntity usersEntity) {   // payload
     Map<String, Object> claims = new HashMap<>();
     claims.put(DATA_KEY, usersEntity.getUserId());
     return claims;
