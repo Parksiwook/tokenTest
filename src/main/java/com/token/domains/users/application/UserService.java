@@ -58,9 +58,9 @@ public class UserService {
   public TokenResponse signIn(UserRequest userRequest) throws Exception {
     UsersEntity usersEntity =
         usersRepository.findByUserId(userRequest.getUserId())
-            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다.")); //부적합 인수전달시
     AuthEntity authEntity = authRepository.findByUsersEntityId(usersEntity.getId())
-            .orElseThrow(() -> new IllegalArgumentException("Token 이 존재하지 않습니다."));
+            .orElseThrow(() -> new IllegalArgumentException("Token 이 존재하지 않습니다.")); //부적합 인수전달시
     if (!passwordEncoder.matches(userRequest.getUserPw(), usersEntity.getPw())) {
       throw new Exception("비밀번호가 일치하지 않습니다.");
     }
@@ -86,5 +86,6 @@ public class UserService {
     String userid = tokenUtils.a;
 
     return usersRepository.findUsersEntityByUserId(userid);
+//    return usersRepository.findAll();
   }
 }
