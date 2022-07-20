@@ -47,11 +47,11 @@ public class TokenUtils {
 
 
   public boolean isValidToken(String token) { // 토큰 정보 보기
-    System.out.println("isValidToken is : " +token);
+    System.out.println("Token : " +token);
     try {
       Claims accessClaims = getClaimsFormToken(token);
       System.out.println("Access token: " + accessClaims.getExpiration());
-      System.out.println("Access userId: " + accessClaims.get("userId"));
+      System.out.println("userId: " + accessClaims.get("userId"));
       a = (String) accessClaims.get("userId"); // 토큰에서 유저아이디
       return true;
       //try catch 예외 처리코드
@@ -72,7 +72,6 @@ public class TokenUtils {
 
       System.out.println("Access token: " + accessClaims.getExpiration());
       System.out.println("Access userIdd: " + accessClaims.get("userId"));
-      a = (String) accessClaims.get("userId");
 
       return true;
     } catch (ExpiredJwtException exception) {

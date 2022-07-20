@@ -12,10 +12,20 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SpringSecurity extends WebSecurityConfigurerAdapter {
 
+
+  // 스프링 시큐리티 규칙
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http.csrf().disable().cors().disable().headers().frameOptions().disable();
+    // csrf 보안 설정
+    http.csrf()
+            .disable()
+            .cors()
+            .disable()
+            .headers()
+            .frameOptions()
+            .disable();
   }
+  //비번 암호화
   @Bean
   public PasswordEncoder passwordEncoder(){
     return new BCryptPasswordEncoder();
