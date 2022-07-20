@@ -26,22 +26,22 @@ public class TokenUtils {
 
   public String generateJwtToken(UsersEntity usersEntity) {
     return Jwts.builder()
-        .setSubject(usersEntity.getUserId())
-        .setHeader(createHeader())
-        .setClaims(createClaims(usersEntity))
-        .setExpiration(createExpireDate(1000 * 60 * 5))
-        .signWith(SignatureAlgorithm.HS256, createSigningKey(SECRET_KEY))
-        .compact();
+        .setSubject(usersEntity.getUserId()) // 토큰 용도
+        .setHeader(createHeader()) //Headers 설정
+        .setClaims(createClaims(usersEntity)) // Claims 설정
+        .setExpiration(createExpireDate(1000 * 60 * 5))//토큰 만료시간 설정
+        .signWith(SignatureAlgorithm.HS256, createSigningKey(SECRET_KEY)) //대칭키 이용 , 서명 알고리즘
+        .compact(); //토큰생성
   }
 
   public String saveRefreshToken(UsersEntity usersEntity) {
     return Jwts.builder()
-        .setSubject(usersEntity.getUserId())
-        .setHeader(createHeader())
-        .setClaims(createClaims(usersEntity))
-        .setExpiration(createExpireDate(1000 * 60 * 10))
-        .signWith(SignatureAlgorithm.HS256, createSigningKey(REFRESH_KEY))
-        .compact();
+        .setSubject(usersEntity.getUserId()) //토큰 용도
+        .setHeader(createHeader()) //Headers 설정
+        .setClaims(createClaims(usersEntity))// Claims 설정
+        .setExpiration(createExpireDate(1000 * 60 * 10))//토큰 만료시간 설정
+        .signWith(SignatureAlgorithm.HS256, createSigningKey(REFRESH_KEY))//서명 알고리즘
+        .compact();//토큰생성
   }
 
 
