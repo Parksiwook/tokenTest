@@ -19,6 +19,7 @@ public class AuthEntity {
 
   private String refreshToken;
 
+
   @ManyToOne
   @JoinColumn(name = "user_id")
   private UsersEntity usersEntity;

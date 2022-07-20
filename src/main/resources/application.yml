@@ -1,6 +1,6 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver친구 추가 기능
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://3.34.122.118:3306/RDBMS?serverTimezone=Asia/Seoul
     username: wook
     password: 222

@@ -50,7 +50,7 @@ public class TokenUtils {
     System.out.println("Token : " +token);
     try {
       Claims accessClaims = getClaimsFormToken(token);
-      System.out.println("Access token: " + accessClaims.getExpiration());
+      System.out.println("token : " + accessClaims.getExpiration()); // 토큰 만료시간
       System.out.println("userId: " + accessClaims.get("userId"));
       a = (String) accessClaims.get("userId"); // 토큰에서 유저아이디
       return true;
@@ -70,8 +70,9 @@ public class TokenUtils {
     try {
       Claims accessClaims = getClaimsToken(token);
 
-      System.out.println("Access token: " + accessClaims.getExpiration());
+      System.out.println("token : " + accessClaims.getExpiration()); // 토큰 만료시간
       System.out.println("Access userIdd: " + accessClaims.get("userId"));
+
 
       return true;
     } catch (ExpiredJwtException exception) {
@@ -80,10 +81,11 @@ public class TokenUtils {
     } catch (JwtException exception) {
       System.out.println("Token");
       return false;
-    } catch (NullPointerException exception) {
+    } catch (NullPointerException exception) { //객체가 없는 상태일때
       System.out.println("Token null");
       return false;
     }
+
   }
 
 
