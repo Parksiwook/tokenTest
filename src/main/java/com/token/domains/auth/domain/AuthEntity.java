@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
+// 토큰 관리 테이블(auth) 단방향 맵핑
 @Getter
 @RequiredArgsConstructor
 @Table(name = "auth")
@@ -16,7 +17,6 @@ public class AuthEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Id
   private Long id;
-
   private String refreshToken;
 
   @ManyToOne
@@ -28,6 +28,7 @@ public class AuthEntity {
     this.refreshToken = refreshToken;
     this.usersEntity = usersEntity;
   }
+  // refreshUpdate = DB에 저장, 사용하는 refreshToken이 만료되었을 때 DB에 업데이트되는 기능
   public void refreshUpdate(String refreshToken) {
     this.refreshToken = refreshToken;
   }

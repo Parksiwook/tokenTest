@@ -8,7 +8,6 @@ import com.token.domains.users.application.dto.UserRequest;
 import com.token.domains.users.domain.UsersEntity;
 import com.token.domains.users.domain.UsersRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -86,7 +85,7 @@ public class UserService {
   }
 
   public List<UsersEntity> findUsers(){
-    String userid = tokenUtils.a;
+    String userid = tokenUtils.user_id;
 
     return usersRepository.findUsersEntityByUserId(userid);
   }

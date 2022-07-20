@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+// JWT(Json Web Token)구조 - 헤더(Header). 내용(Payload). 서명(Signature)
 @RequiredArgsConstructor
 @Service
 public class TokenUtils {
@@ -19,27 +20,27 @@ public class TokenUtils {
   private final String SECRET_KEY = "secretKey";
   private final String REFRESH_KEY = "refreshKey";
   private final String DATA_KEY = "userId";
+  public String user_id = null;
 
-  public String a = null;
-
+  // HS256 : 대칭키 알고리즘 / 2개 이상의 영역에서 키 값 공유 (RS256 : 비대칭형 알고리즘 / 공개키와 개인키 2개의 키를 활용)
+  // 원본 메시지가 변하면 그 해시값도 변하는 해싱의 특징을 활용하며 메시지의 변조 여부를 확인하여 무결성 및 기밀성을 제공하는 기술
   public String generateJwtToken(UsersEntity usersEntity) {
     return Jwts.builder()
         .setHeader(createHeader())                      // header 지정
         .setClaims(createClaims(usersEntity))           // payload에 들어 갈 claim 등록
         .setSubject(usersEntity.getUserId())
         .setExpiration(createExpireDate(1000 * 60 * 1)) // 토큰 만료 시간
-        .signWith(SignatureAlgorithm.HS256, createSigningKey(SECRET_KEY)) // 해싱 알고리즘과 시크릿 키 설정
-        .compact();                                                       // JWT 토큰 생성
+        .signWith(SignatureAlgorithm.HS256, createSigningKey(SECRET_KEY)) // 해싱 알고리즘과 secret 키 설정
+        .compact();     // jwt 토큰 생성
   }
-
   public String saveRefreshToken(UsersEntity usersEntity) {
     return Jwts.builder()
         .setHeader(createHeader())
         .setClaims(createClaims(usersEntity))
         .setSubject(usersEntity.getUserId())
         .setExpiration(createExpireDate(1000 * 60 * 2))
-        .signWith(SignatureAlgorithm.HS256, createSigningKey(REFRESH_KEY))
-        .compact();
+        .signWith(SignatureAlgorithm.HS256, createSigningKey(REFRESH_KEY))  // 해싱 알고리즘과 refresh 키 설정
+        .compact();     // refresh 토큰 생성
   }
 
 
@@ -50,7 +51,7 @@ public class TokenUtils {
       Claims accessClaims = getClaimsFormToken(token);
       System.out.println("Access token: " + accessClaims.getExpiration());
       System.out.println("Access userId: " + accessClaims.get("userId"));
-      a = (String) accessClaims.get("userId");
+      user_id = (String) accessClaims.get("userId");
 
       return true;
     } catch (ExpiredJwtException exception) {
@@ -109,7 +110,7 @@ public class TokenUtils {
 
   private Key createSigningKey(String key) {
     byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(key);
-    return new SecretKeySpec(apiKeySecretBytes, SignatureAlgorithm.HS256.getJcaName());
+    return new SecretKeySpec(apiKeySecretBytes, SignatureAlgorithm.HS256.getJcaName()); // signature 위변조 여부 확인
   }
 
   private Claims getClaimsFormToken(String token) {

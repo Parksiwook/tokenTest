@@ -14,10 +14,16 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http.csrf().disable().cors().disable().headers().frameOptions().disable();
+    http.csrf()
+            .disable()
+            .cors()
+            .disable()
+            .headers()
+            .frameOptions()
+            .disable();
   }
   @Bean
   public PasswordEncoder passwordEncoder(){
     return new BCryptPasswordEncoder();
-  }
+  }   // BCrypt pw 암호화 (단방향)
 }

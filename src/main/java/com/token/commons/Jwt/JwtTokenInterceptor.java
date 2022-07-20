@@ -25,7 +25,7 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
     System.out.println("RefreshToken:" + refreshToken);
 
 
-    if (accessToken != null) {
+    if (accessToken != null) {    // 두 값이 같지 않은지를 비교 (같으면 0 다르면 1)
       if (tokenUtils.isValidToken(accessToken)) {
         return true;
       }
@@ -34,7 +34,7 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
     response.setStatus(401);
     response.setHeader("ACCESS_TOKEN", accessToken);
     response.setHeader("REFRESH_TOKEN", refreshToken);
-    response.setHeader("msg", "Check the tokens.");
+    response.setHeader("msg", "Check the tokens");
     return false;
   }
 }
