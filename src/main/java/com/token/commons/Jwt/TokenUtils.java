@@ -90,9 +90,9 @@ public class TokenUtils {
   }
 
 
-  private Date createExpireDate(long expireDate) {
-    long curTime = System.currentTimeMillis();
-    return new Date(curTime + expireDate);
+  private Date createExpireDate(long expireDate) {  // 만료시간
+    long curTime = System.currentTimeMillis();      // 현재시간 (표준)
+    return new Date(curTime + expireDate);          // 현재시간 + 유효시간
   }
 
   private Map<String, Object> createHeader() {
