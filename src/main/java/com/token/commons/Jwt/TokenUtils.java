@@ -31,7 +31,7 @@ public class TokenUtils {
         .setHeader(createHeader())                      // 토큰 생성 시 header 지정
         .setClaims(createClaims(usersEntity))           // 토큰 생성 시 payload 지정
         .setSubject(usersEntity.getUserId())
-        .setExpiration(createExpireDate(1000 * 60 * 1)) // 토큰 유효 시간
+        .setExpiration(createExpireDate(1000 * 60 * 5)) // 토큰 유효 시간 (5분)
         .signWith(SignatureAlgorithm.HS256, createSigningKey(SECRET_KEY)) // 해싱 알고리즘과 secret 키 설정
         .compact();     // jwt 토큰 생성
   }
@@ -41,7 +41,7 @@ public class TokenUtils {
         .setHeader(createHeader())
         .setClaims(createClaims(usersEntity))
         .setSubject(usersEntity.getUserId())
-        .setExpiration(createExpireDate(1000 * 60 * 2))
+        .setExpiration(createExpireDate(1000 * 60 * 10)) // (10분)
         .signWith(SignatureAlgorithm.HS256, createSigningKey(REFRESH_KEY))  // 해싱 알고리즘과 refresh 키 설정
         .compact();     // refresh 토큰 생성
   }
