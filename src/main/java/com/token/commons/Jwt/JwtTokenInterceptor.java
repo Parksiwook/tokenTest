@@ -19,13 +19,14 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
       throws IOException {
 
     System.out.println("JwtToken 호출");
-    String accessToken = request.getHeader("ACCESS_TOKEN");
+    String accessToken = request.getHeader("ACCESS_TOKEN"); // 클라이언트가  key(accesstoken)값으로 회원가입 때 생성하여 보관하던
+                                                                  // token을 보내주면 그 value값을 가져와서 null인지 확인
     System.out.println("AccessToken:" + accessToken);
     String refreshToken = request.getHeader("REFRESH_TOKEN");
     System.out.println("RefreshToken:" + refreshToken);
 
-
-    if (accessToken != null) {    // 두 값이 같지 않은지를 비교 (같으면 0 다르면 1)
+    // null이 아닐 경우 isValidToken에서 해당 token이 서버에서 생성한 token인지, 유효기간이 지났는지 확인
+    if (accessToken != null) {
       if (tokenUtils.isValidToken(accessToken)) {
         return true;
       }

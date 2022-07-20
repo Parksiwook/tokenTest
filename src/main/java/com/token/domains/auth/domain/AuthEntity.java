@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
-// 토큰 관리 테이블(auth) 단방향 맵핑
+// 토큰 관리 테이블(auth)
 @Getter
 @RequiredArgsConstructor
 @Table(name = "auth")

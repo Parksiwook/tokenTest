@@ -28,7 +28,7 @@ public class UserService {
     return usersRepository.findByUserId(userId);
   }
 
-  // 회원가입
+  // 회원가입 - 정보입력
   @Transactional
   public TokenResponse signUp(UserRequest userRequest) {
     UsersEntity usersEntity =
@@ -45,6 +45,7 @@ public class UserService {
                     .travel(userRequest.getUsertravel())
                     .build());
 
+    // 회원가입 시 access, refresh Token 발급
     String accessToken = tokenUtils.generateJwtToken(usersEntity);
     String refreshToken = tokenUtils.saveRefreshToken(usersEntity);
 
@@ -54,7 +55,7 @@ public class UserService {
     return TokenResponse.builder().ACCESS_TOKEN(accessToken).REFRESH_TOKEN(refreshToken).build();
   }
 
-  // 로그인
+  // 로그인 - Token, ID, PW 존재 유무
   @Transactional
   public TokenResponse signIn(UserRequest userRequest) throws Exception {
     UsersEntity usersEntity =
@@ -68,7 +69,7 @@ public class UserService {
     String accessToken = "";
     String refreshToken = authEntity.getRefreshToken();
 
-    // 로그인시 access_TOKEN 발급
+
     if (tokenUtils.isValidRefreshToken(refreshToken)) {
       accessToken = tokenUtils.generateJwtToken(authEntity.getUsersEntity());
       return TokenResponse.builder()
@@ -85,8 +86,7 @@ public class UserService {
   }
 
   public List<UsersEntity> findUsers(){
-    String userid = tokenUtils.user_id;
-
+    String userid = tokenUtils.user_id;   // 토큰으로 유저 정보
     return usersRepository.findUsersEntityByUserId(userid);
   }
 }
