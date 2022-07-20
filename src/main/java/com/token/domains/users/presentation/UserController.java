@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RequiredArgsConstructor
+@RequiredArgsConstructor //생성자 생성
 @RestController
 public class UserController {
 

@@ -24,6 +24,8 @@ public class TokenUtils {
 
   public String a = null;
 
+
+
   public String generateJwtToken(UsersEntity usersEntity) {
     return Jwts.builder()
         .setSubject(usersEntity.getUserId())
@@ -52,7 +54,7 @@ public class TokenUtils {
       Claims accessClaims = getClaimsFormToken(token);
       System.out.println("token : " + accessClaims.getExpiration()); // 토큰 만료시간
       System.out.println("userId: " + accessClaims.get("userId"));
-      a = (String) accessClaims.get("userId"); // 토큰에서 유저아이디
+      a = (String) accessClaims.get("userId"); // map<> userid 키로 토큰에서 유저아이디
       return true;
       //try catch 예외 처리코드
     } catch (ExpiredJwtException exception) {
@@ -105,7 +107,7 @@ public class TokenUtils {
   }
 
   private Map<String, Object> createClaims(UsersEntity usersEntity) {// 토큰 만들때 payload 지정
-    Map<String, Object> claims = new HashMap<>();
+    Map<String, Object> claims = new HashMap<>(); //map key value
     claims.put(DATA_KEY, usersEntity.getUserId());
     return claims;
   }
