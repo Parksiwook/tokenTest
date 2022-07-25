@@ -6,16 +6,14 @@ import com.token.domains.users.application.dto.TokenResponse;
 import com.token.domains.users.application.dto.UserRequest;
 import com.token.domains.users.domain.UsersEntity;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RequiredArgsConstructor //생성자 생성
-@RestController
+@RestController // Responsebody 어노테이션과 controller 어노테이션들을 상속받고 있다
 public class UserController {
 
   private final UserService userService;
@@ -36,5 +34,6 @@ public class UserController {
   @GetMapping("/info")
   public ResponseEntity<List<UsersEntity>> findUser() {
     return ResponseEntity.ok().body(userService.findUsers());
+
   }
 }

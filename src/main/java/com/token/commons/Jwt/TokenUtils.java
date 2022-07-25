@@ -74,7 +74,7 @@ public class TokenUtils {
 
       System.out.println("token : " + accessClaims.getExpiration()); // 토큰 만료시간
       System.out.println("Access userIdd: " + accessClaims.get("userId"));
-
+      a = (String) accessClaims.get("userId");
 
       return true;
     } catch (ExpiredJwtException exception) {

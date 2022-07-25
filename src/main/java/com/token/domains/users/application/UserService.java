@@ -29,6 +29,8 @@ public class UserService {
     return usersRepository.findByUserId(userId);
   }
 
+
+
   @Transactional
   public TokenResponse signUp(UserRequest userRequest) {
     UsersEntity usersEntity =
@@ -85,6 +87,7 @@ public class UserService {
   public List<UsersEntity> findUsers(){
     String userid = tokenUtils.a;
 
+    System.out.println("aaaa" + userid);
     return usersRepository.findUsersEntityByUserId(userid);
 //    return usersRepository.findAll();
   }

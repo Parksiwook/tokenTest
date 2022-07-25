@@ -1,6 +1,8 @@
 package com.token.domains.users.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -28,7 +30,6 @@ public class UsersEntity {
   private String travel;
 
 
-
   @Builder
   public UsersEntity(String userId, String pw, String name, String age, String area,
                      String school, String blood, String foot_size, String travel) {
@@ -41,7 +42,10 @@ public class UsersEntity {
     this.blood = blood;
     this.foot_size = foot_size;
     this.travel = travel;
+
   }
+
+
 
 
 
